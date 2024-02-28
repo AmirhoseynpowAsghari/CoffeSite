@@ -32,7 +32,9 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True')
-        return self.create_user(email, password, **extra_fields)
+        superuser = self.create_user(email, password, **extra_fields)
+        print('The super user created successfully')  # Add this line
+        return superuser
 
 
 # https://github.com/django/django/blob/main/django/contrib/auth/models.py#L334
