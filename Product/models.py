@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.conf import settings
 
-# Create your models here.
+# Create your models here. 
 class Product(models.Model):
     name           = models.CharField(max_length=150)
     description    = models.TextField()
