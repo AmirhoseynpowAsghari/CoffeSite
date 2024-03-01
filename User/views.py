@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-from .models import UserModel
+from .models import UserModel, UserProfile
 
 def home(request):
     return HttpResponse('Hello This my home page')
@@ -35,7 +35,7 @@ class UserList(ListView):
     model = UserModel
     template_name = 'User/userlist.html'
     context_object_name = 'user'
-    
+
     #https://stackoverflow.com/questions/36950416/when-to-use-get-get-queryset-get-context-data-in-django
     def get_queryset(self):
         current_user = self.request.user
@@ -47,3 +47,7 @@ class UserList(ListView):
         context['user'] = self.request.user  # Include the current user in the context data
         return context
     
+class UserProfile(ListView):
+    model = UserProfile
+    template_name = 'User/userprofile.html'
+    context_object_name = 'userprofile'
