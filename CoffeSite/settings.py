@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'User.apps.UserConfig',
     'Product.apps.ProductConfig',
+    'ecommerce.apps.EcommerceConfig'
 ]
 
 AUTH_USER_MODEL = 'User.UserModel'

@@ -12,7 +12,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 import contextlib
 import random
 import uuid
-# from ecommerce.models import Order
+from ecommerce.models import Order
 
 
 
@@ -62,9 +62,9 @@ class UserModel(AbstractUser, PermissionsMixin):
     def get_user_fullname(self):
         return f"{self.first_name} {self.last_name}"
     
-    # def get_user_orders(self):
-    #     user_orders = Order.objects.all().filter(user=self)
-    #     return user_orders
+    def get_user_orders(self):
+        user_orders = Order.objects.all().filter(user=self)
+        return user_orders
     
     
     def get_user_profile(self):

@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here. 
 class Product(models.Model):
@@ -38,3 +39,19 @@ class Like(models.Model):
     class Meta:
         unique_together = ("user", "product")
         ordering = ["product"]
+
+class Review(models.Model):
+    user         = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews")
+    product      = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="reviews")
+    rating_value = models.PositiveIntegerField( validators= [ MinValueValidator(1), MaxValueValidator(5)])
+    # rating_value = models.CharField(max_length=3, choices=RATING_VALUE)
+    rating_text  = models.TextField(blank=True, null=True)
+    created_at   = models.DateTimeField(auto_now_add=True)
+    updated_at   = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Rating by ({self.user.get_user_fullname}) on ({self.product.name})"
+
+    class Meta:
+        unique_together = ("user", "product")
+        ordering = ["updated_at"]
